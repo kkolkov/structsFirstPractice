@@ -72,42 +72,16 @@ void newEntry(Student* mas) {
 	cin >> mas[posToAdd].lastName >> mas[posToAdd].name >> mas[posToAdd].patronymic >>
 		mas[posToAdd].groupNumber >> mas[posToAdd].numberInGroup >> mas[posToAdd].gender;
 	cin >> mas[posToAdd].educationalForm;
-	int sum = 0;
+	float sum = 0;
 	for (int i = 0; i < 8; i++) {
 		cin >> mas[posToAdd].grades[i];
 		sum += mas[posToAdd].grades[i];
 	}
-	mas[posToAdd].middleMark = sum / 8;
+	mas[posToAdd].middleMark = sum / 8.0;
 	cin >> mas[posToAdd].day >> mas[posToAdd].month >> mas[posToAdd].date;
 	scanf("%d:%d:%d", &mas[posToAdd].hour, &mas[posToAdd].minute, &mas[posToAdd].seconds);
 	cin >> mas[posToAdd].year;
 	mas[posToAdd].record = true;
-	writeToFile(mas);
-}
-void changeRecord(Student* mas) {
-	int posToEdit;
-	cout << "enter the number of the record to edit (ENTRIES ARE NUMBERED FROM 0)\n";
-	cin >> posToEdit;
-	cout << "Please,enter new information about: last name, first name, "
-		"patronymic, gender, group number, "
-		"number in the group list, grades"
-		"for the last session "
-		"(total 3 exams and 5 differentiated credits), "
-		"form of study, time stamp on entering or changing data "
-		"(in the following form: Sat Feb 10 12:05:12 2020)\n";
-	cin >> mas[posToEdit].lastName >> mas[posToEdit].name >> mas[posToEdit].patronymic >>
-		mas[posToEdit].groupNumber >> mas[posToEdit].numberInGroup >> mas[posToEdit].gender;
-	cin >> mas[posToEdit].educationalForm;
-	int sum = 0;
-	for (int i = 0; i < 8; i++) {
-		cin >> mas[posToEdit].grades[i];
-		sum += mas[posToEdit].grades[i];
-	}
-	mas[posToEdit].middleMark = sum / 8;
-	cin >> mas[posToEdit].day >> mas[posToEdit].month >> mas[posToEdit].date;
-	scanf("%d:%d:%d", &mas[posToEdit].hour, &mas[posToEdit].minute, &mas[posToEdit].seconds);
-	cin >> mas[posToEdit].year;
-	mas[posToEdit].record = true;
 	writeToFile(mas);
 }
 void studentToTheScreen(Student* mas, int posNow) {
@@ -135,6 +109,38 @@ void allStudentsToTheScreen(Student* mas) {
 		studentToTheScreen(mas, posNow);
 		posNow++;
 	}
+}
+void changeRecord(Student* mas) {
+	int posToEdit;
+	cout << "enter the number of the record to edit (ENTRIES ARE NUMBERED FROM 0, to find out the number in the list, run the command 3)\n";
+	cout << "Run the command 3? Y/N\n";
+	char command;
+	cin >> command;
+	if (command == 'Y')
+		allStudentsToTheScreen(mas);
+	cout << "\nenter the number of the record to edit";
+	cin >> posToEdit;
+	cout << "Please,enter new information about: last name, first name, "
+		"patronymic, gender, group number, "
+		"number in the group list, grades"
+		"for the last session "
+		"(total 3 exams and 5 differentiated credits), "
+		"form of study, time stamp on entering or changing data "
+		"(in the following form: Sat Feb 10 12:05:12 2020)\n";
+	cin >> mas[posToEdit].lastName >> mas[posToEdit].name >> mas[posToEdit].patronymic >>
+		mas[posToEdit].groupNumber >> mas[posToEdit].numberInGroup >> mas[posToEdit].gender;
+	cin >> mas[posToEdit].educationalForm;
+	float sum = 0;
+	for (int i = 0; i < 8; i++) {
+		cin >> mas[posToEdit].grades[i];
+		sum += mas[posToEdit].grades[i];
+	}
+	mas[posToEdit].middleMark = sum / 8.0;
+	cin >> mas[posToEdit].day >> mas[posToEdit].month >> mas[posToEdit].date;
+	scanf("%d:%d:%d", &mas[posToEdit].hour, &mas[posToEdit].minute, &mas[posToEdit].seconds);
+	cin >> mas[posToEdit].year;
+	mas[posToEdit].record = true;
+	writeToFile(mas);
 }
 void studentsOfGroupNumberNToTheScreen(Student* mas) {
 	int posNow = 0;
